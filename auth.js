@@ -27,6 +27,7 @@ submitBtn.addEventListener('click',e=>{
    
     if(password.value!=sec_pass.value){
         alert("Password didn't match..\n Please enter same password");
+        resetform();
         return false;
     }
   else{
@@ -48,7 +49,7 @@ submitBtn.addEventListener('click',e=>{
                 address:add,
                 name:fname.value,
              });
-             
+             resetform();
              alert('Account created successfully \n Please login to continue');
       }).catch(err=>{
          document.getElementById('err-mess-id').innerHTML='*'+err.message;
