@@ -14,7 +14,7 @@ db1.ref('allUsers').on("child_added",function(snapshot){
          let html="";
          snapshot.forEach(element => {
             const li=`
-            <div class="user-list-item col-in">
+            <div class="user-list-item col-in ptr">
             <div class="profile-photo">
               <span class="material-icons md">account_circle</span>
             </div>

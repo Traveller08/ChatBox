@@ -1,17 +1,21 @@
 var current_id="";
 var Id1="";
 var Id2="";
+function updateScroll(){
+    var element = document.querySelector(".chat-area");
+    element.scrollTop = element.scrollHeight;
+}
 document.querySelector('html').addEventListener('keypress',function(e){
     console.log('key pressed2');
      setupname();
      setupFriendList();
-     if(Id1!="" && Id2!="")setupchats();
+     if(Id1!="" && Id2!=""){setupchats(); updateScroll()}
   });
   document.querySelector('html').addEventListener('click',function(e){
     console.log('mouse clicked2');
    setupname();
    setupFriendList();
-   if(Id1!="" && Id2!="")setupchats();
+   if(Id1!="" && Id2!=""){setupchats(); updateScroll()}
  });
  function getUserName(userid){
     var name="";
@@ -138,7 +142,7 @@ function setupFriendList(){
         snapshot.forEach(element => {    
             var id1=element.val().Id;
            const li=`
-            <li class="friends-list-item" id="${id1}" onclick="openchat(this)">
+            <li class="friends-list-item ptr" id="${id1}" onclick="openchat(this)">
             <span class="material-icons md23">account_circle</span>
             <p class="name-of-friend">${getUserName(id1)}</p>
             </li>
@@ -269,7 +273,10 @@ function openchat(ele){
         document.querySelector('#friendNameId').innerHTML=snapshot.val().name;
     });
     // 
-    
+    Id1=getemail(auth.currentUser.email);
+    Id2=current_id;
+    setupchats();
+    updateScroll();
 }  
 
 function sendMessage(){
@@ -293,6 +300,7 @@ function sendMessage(){
         db1.ref('users/'+id1+'/chats/allChats/'+current_id).push(obj1);
         db1.ref('users/'+current_id+'/chats/allChats/'+id1).push(obj1);
         setupchats();
+        updateScroll();
         console.log('message sent');
     }
     Id1=id1;
