@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/a7eb2a755a.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@500&family=Roboto:wght@500;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+       
+    </style>
+</head>
+<body>
+    <div class="nav-bar col-3">
+        <div class="left-nav-bar">
+           <div class="company-container">
+              <div class="material-icons md1 companylogo">wechat</div>
+  
+           </div>
+        </div>
+        <div class="right-nav-bar">
+           <div class="user-container">
+              <span class="material-icons md1 userlogo">account_circle</span>
+              <p class="nameOfTheUser mdp"></p>  
+           </div>
+           <div class="add-icons-container">
+              <span class="material-icons md1 ptr logout">logout</span>
+              <span class="material-icons md1 ptr show-request" onclick="showRequests()">people_alt</span>
+              <span class="material-icons md1 ptr show-notification" onclick="showNotification()">notifications</span>
+              <span class="material-icons md1 ptr show-extra" onclick="showExtra()">expand_more</span>
+           </div>
+        </div>
+        
+     </div>
+     <div class="notification-area col-in"></div>
+     <div class="friend-request-area col-in"></div>
+     <div class="more-optons-area col-in"></div>
+   <div class="container col-in">
+       <div class="friends-container col-in-1">
+           <div class="profile-photo-bar col-in-1">
+            <div class="profile-icons col-in"></div>
+            <input type="text" id="search-box" name="search-box" class="col-3" >
+           </div>
+           <div class="all-users-list col-3" id="frndList">
+          
+           </div>
+           <hr class="hr-1 col-body">
+           <div class="friends-list col-in-1" ></div>
+       </div>
+       <div class="chats-send-container">
+           <div class="title-bar col-in-1">
+            <p class="friendName" id="friendNameId"></p>
+            <i class="material-icons md-181 ptr" onclick="showMoreOptions()" id="show-more">more_vert</i>
+            <div class="more-options col-3" ></div>
+           </div>
+            <div class="chat-area col-in-body">
+                <div class="emo-box col-3"></div>
+                <div class="attach-box col-3"></div>
+            </div>
+            <div class="send-bar col-in-1">
+                <div class="send-options">
+                    <span class="material-icons md2 ptr emo1" id="emo-icon" onclick="showEmoBar()">insert_emoticon</span>
+                    <span class="material-icons md2 ptr" id="attach-icon" onclick="showAttachBar()">attach_file</span>           
+                </div>
+                <div class="text-area col-in-1">
+                    <input type="text" id="text-input" name="text-input" class="col-3">
+                </div>
+                <div class="send-btn">
+                    <i class="material-icons md-18 ptr" id="send-btn-icon" onclick="sendMessage()">send</i>
+                </div>
+            </div>
+       </div>
+   </div>
+</body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAJcNxAY77ZsCl1zH2UYymD_rSxmcXkRgc",
+    authDomain: "cheems-talk.firebaseapp.com",
+    projectId: "cheems-talk",
+    storageBucket: "cheems-talk.appspot.com",
+    messagingSenderId: "639620505190",
+    appId: "1:639620505190:web:47b2dc31c97875f467d7a7",
+    measurementId: "G-VNWXNFS63R"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const db =firebase.firestore();
+  const auth = firebase.auth();
+  const db1=firebase.database();
+</script>
+
+<script src="script.js"></script>
+<script src="friend-list.js"></script>
+<script src="friend-request.js"></script>
+<script src="sendMessage.js"></script>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Ubuntu:wght@300&display=swap" rel="stylesheet">   
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Khand:wght@600&family=Yanone+Kaffeesatz:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="style.css">   
+<style>
+   .nav-bar{display: flex;min-width: 800px;}
+ table{
+    margin-left: 15%;
+    font-size: 20px;
+    color: white;
+    border-spacing: 15px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+ }
+
+  #signUp-container input[type=text],#signUp-container input[type=email],#signUp-container input[type=password],#signUp-container input[type=date]{
+    width: 400px;
+    height: 50px;
+ }
+  #signUp-container{text-align: center;margin-top: 100px;margin-left: 20%;padding-bottom:50px;padding-top: 10px;box-shadow: 2px 2px 5px rgba(0,0,0,0.47);width: 900px;}
+#err-mess-id{color: red;margin-top: 1px; font-size: 12px; font-weight: 900; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
+</style>
+</head>
+<body>
+   <div class="nav-bar col-3">
+      <div class="left-navbar">
+         <div class="company-container">
+            <div class="material-icons md1 companylogo">wechat</div>
+            <div class="nameofcompany">Cheems Chat</div>
+         </div>
+      </div>
+      <div class="right-navbar">
+         <div class="form-container">
+            <form>
+               <input type="email" name="email" id="login-email">
+               <input type="password" name="password" id="login-password">
+               <button  id="login-submit" class="submit">Sign in</button>
+            </form>
+            <div id="err-message" style="color: red;margin-top: 1px; font-size: 12px; font-weight: 900; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"></div>
+         </div>
+          
+      </div>
+   </div>
+   <div id="signUp-container" class="col-in-1">
+      <p style="font-family: monospace; font-weight: 1000; font-size: 35px; color: white;">Sign up</p>
+      <p id="err-mess-id"></p>
+      <table>
+         <tr>
+            <td>Name</td>
+            <td>
+               <input type="text" name="fname" id="fname" >
+            </td>
+         </tr>
+         <tr>
+            <td>Username</td>
+            <td>
+               <input type="text" name="username" id="username" required>
+            </td>
+         </tr>
+         <tr>
+            <td>Email</td>
+            <td>
+               <input type="email" name="email" id="email" required>
+            </td>
+         </tr>
+         <tr>
+            <td>Password</td>
+            <td>
+               <input type="password" name="password" id="pass" required>
+            </td>
+         </tr>
+         <tr>
+            <td>Confirm password</td>
+            <td>
+               <input type="text" name="confirmPassword" required id="confirm-Password">
+            </td>
+         </tr>
+         <tr>
+            <td>Date of Birth</td>
+            <td>
+               <input type="date" required name="dob" id="dob">
+            </td>
+         </tr>
+         <tr >
+            <td>Gender</td>
+            <td>
+               <input type="radio" name="gender" required id="male" value="male">
+            <label for="male">Male</label>
+            <input type="radio" name="gender" required id="female" value="female">
+            <label for="female">Female</label>
+            <input type="radio" name="gender"  required id="other" value="other">
+             <label for="other">Other</label>
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2"><button type="submit" class="submit1" id="signup-submit" style="float: none; width:400px;max-width: 1000px; font-size: 20px; font-weight: 1000; font-family: sans-serif;" >Sign Up</button></td>
+         </tr>
+      </table>
+         
+    
+      
+   </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAJcNxAY77ZsCl1zH2UYymD_rSxmcXkRgc",
+    authDomain: "cheems-talk.firebaseapp.com",
+    projectId: "cheems-talk",
+    storageBucket: "cheems-talk.appspot.com",
+    messagingSenderId: "639620505190",
+    appId: "1:639620505190:web:47b2dc31c97875f467d7a7",
+    measurementId: "G-VNWXNFS63R"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const db =firebase.firestore();
+  const auth = firebase.auth();
+  const db1=firebase.database();
+</script>
+<script src="auth.js"></script>
+</html>
