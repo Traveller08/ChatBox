@@ -1,21 +1,26 @@
 var current_id="";
 var Id1="";
 var Id2="";
+var nooftimes=parseInt(0);
 function updateScroll(){
     var element = document.querySelector(".chat-area");
     element.scrollTop = element.scrollHeight;
 }
 document.querySelector('html').addEventListener('keypress',function(e){
-    console.log('key pressed2');
+    if(nooftimes<=5)
+    {console.log('key pressed2');
      setupname();
      setupFriendList();
-     if(Id1!="" && Id2!=""){setupchats(); updateScroll()}
+    }
+    nooftimes++;
   });
   document.querySelector('html').addEventListener('click',function(e){
-    console.log('mouse clicked2');
-   setupname();
-   setupFriendList();
-   if(Id1!="" && Id2!=""){setupchats(); updateScroll()}
+    if(nooftimes<=5)
+    {console.log('key pressed2');
+     setupname();
+     setupFriendList();
+    }
+    nooftimes++;
  });
  function getUserName(userid){
     var name="";
@@ -49,7 +54,7 @@ function sendRequest(reciever){
         const sender_address=getemail(user.email);
         setupname();
         const reciever_address=reciever.id;
-       console.log("request send to "+reciever_address+" by "+sender_address);
+      
        
          db1.ref('users/'+reciever_address+"/"+"recieved_requests"+"/"+sender_address).set({
             senderId:sender_address,  
@@ -97,7 +102,7 @@ const sender_address=getemail(user.email);
     });
 }
 document.querySelector('.show-request').addEventListener('click',e=>{
-   setupFriendRequest();
+  
    setupname();
    const notview=document.querySelector('.friend-request-area');
         if(notview.style.visibility=='visible'){
@@ -113,8 +118,7 @@ function acceptRequest(acceptBtn){
  var idSender=acceptBtn.id;
  const user=auth.currentUser;
 const idReciever=getemail(user.email);
-console.log("id of the receiver : "+idReciever);
-console.log("id of the sender "+idSender);
+
 db1.ref('users/'+idSender+"/"+"friends"+"/"+idReciever).set({
     Id:idReciever,  
   });
@@ -156,7 +160,7 @@ function setupFriendList(){
 
 db1.ref('users/'+getemail(auth.currentUser.email)+"/"+'friends').on("child_added",function(snapshot){  
     const list=document.querySelector('.friends-list');
-     db1.ref('users/'+getemail(auth.currentUser.email)+"/"+'friends').on('value',function(snapshot){
+    
          let html="";
          setupname();
          snapshot.forEach(element => {
@@ -171,7 +175,7 @@ db1.ref('users/'+getemail(auth.currentUser.email)+"/"+'friends').on("child_added
               html+=li;
          });
          list.innerHTML=html;
-    });
+  
 });
 function get_time_now(){
     const date = new Date();
@@ -189,9 +193,9 @@ function get_time_now(){
 db1.ref('users/'+Id1+'/chats/allChats/'+Id2).on("child_added",function(snapshot){
     var html="";
     const list=document.querySelector('.chat-area');
-    db1.ref('users/'+Id1+'/chats/allChats/'+Id2).on('value',function(snapshot){
+    
        snapshot.forEach(element=>{
-           console.log(element.val());
+         
            if(element.val().id===Id1){
             const mess=`
             <div class="dialogue-box-container">
@@ -219,11 +223,12 @@ db1.ref('users/'+Id1+'/chats/allChats/'+Id2).on("child_added",function(snapshot)
             html+=mess;
            }
          
-           console.log(element.val());
+        
        });
-    });
+    
    
     list.innerHTML=html;
+    updateScroll();
 });
 
 function setupchats(){
@@ -231,7 +236,7 @@ function setupchats(){
     const list=document.querySelector('.chat-area');
     db1.ref('users/'+Id1+'/chats/allChats/'+Id2).on('value',function(snapshot){
        snapshot.forEach(element=>{
-        console.log(element.val());
+      
            if(element.val().id===Id1){
             const mess=`
             <div class="dialogue-box-container">
@@ -259,11 +264,12 @@ function setupchats(){
             html+=mess;
            }
            
-           console.log(element.val());
+           
        });
     });
    
     list.innerHTML=html;
+    updateScroll();
 }
 function openchat(ele){
     var frndid=ele.id;
@@ -299,9 +305,9 @@ function sendMessage(){
         db1.ref('users/'+current_id+'/chats/recieved/'+id1).push(obj);
         db1.ref('users/'+id1+'/chats/allChats/'+current_id).push(obj1);
         db1.ref('users/'+current_id+'/chats/allChats/'+id1).push(obj1);
+        updateScroll();
         setupchats();
         updateScroll();
-        console.log('message sent');
     }
     Id1=id1;
     Id2=current_id;

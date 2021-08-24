@@ -10,7 +10,7 @@ document.querySelector('.logout').addEventListener('click',e=>{
 
 db1.ref('allUsers').on("child_added",function(snapshot){  
     const list=document.querySelector('#frndList');
-     db1.ref('allUsers').on('value',function(snapshot){
+    
          let html="";
          snapshot.forEach(element => {
             const li=`
@@ -30,7 +30,7 @@ db1.ref('allUsers').on("child_added",function(snapshot){
               html+=li;
          });
          list.innerHTML=html;
-    });
+    
 });
 function setupList(){
     db1.ref('allUsers').on('value',function(snapshot){
