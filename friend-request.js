@@ -290,24 +290,27 @@ function sendMessage(){
     if(auth.currentUser)
     { 
         const currdata=document.getElementById('text-input').value;
-        id1=getemail(auth.currentUser.email);
-        const user = auth.currentUser;
-        var obj={
-            message:currdata,
-            time:get_time_now(),
+        if(currdata===null || currdata===""){}
+        else{id1=getemail(auth.currentUser.email);
+            const user = auth.currentUser;
+            var obj={
+                message:currdata,
+                time:get_time_now(),
+            }
+            var obj1={
+                message:currdata,
+                time:get_time_now(),
+                id:id1,
+            }
+            db1.ref('users/'+id1+'/chats/sent/'+current_id).push(obj);
+            db1.ref('users/'+current_id+'/chats/recieved/'+id1).push(obj);
+            db1.ref('users/'+id1+'/chats/allChats/'+current_id).push(obj1);
+            db1.ref('users/'+current_id+'/chats/allChats/'+id1).push(obj1);
+            updateScroll();
+            setupchats();
+            updateScroll();
         }
-        var obj1={
-            message:currdata,
-            time:get_time_now(),
-            id:id1,
-        }
-        db1.ref('users/'+id1+'/chats/sent/'+current_id).push(obj);
-        db1.ref('users/'+current_id+'/chats/recieved/'+id1).push(obj);
-        db1.ref('users/'+id1+'/chats/allChats/'+current_id).push(obj1);
-        db1.ref('users/'+current_id+'/chats/allChats/'+id1).push(obj1);
-        updateScroll();
-        setupchats();
-        updateScroll();
+      
     }
     Id1=id1;
     Id2=current_id;
